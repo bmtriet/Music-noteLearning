@@ -1,15 +1,15 @@
 :root {
   color-scheme: dark;
-  --bg: #0b0e14;
-  --panel: #111624;
-  --panel-soft: #161c2e;
-  --text: #f4f7ff;
-  --muted: #98a1b3;
-  --accent: #6ef4ff;
-  --accent-strong: #9b8cff;
+  --bg: #0a0d13;
+  --panel: #101520;
+  --panel-soft: #141b2b;
+  --text: #f2f6ff;
+  --muted: #9ba3b4;
+  --accent: #71f7ff;
+  --accent-strong: #8d92ff;
   --success: #4bf58a;
   --danger: #ff5f7a;
-  --warning: #f7d06b;
+  --warning: #f2c94c;
   --shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
 }
 
@@ -21,7 +21,7 @@
 }
 
 body {
-  background: radial-gradient(circle at top, #121a2c 0%, var(--bg) 55%);
+  background: radial-gradient(circle at top, #121c2f 0%, var(--bg) 55%);
   color: var(--text);
   min-height: 100vh;
   display: flex;
@@ -30,7 +30,7 @@ body {
 }
 
 .app {
-  width: min(1100px, 100%);
+  width: min(1120px, 100%);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -59,7 +59,7 @@ body {
   height: 10px;
   border-radius: 999px;
   background: var(--accent);
-  box-shadow: 0 0 12px rgba(110, 244, 255, 0.8);
+  box-shadow: 0 0 12px rgba(113, 247, 255, 0.8);
 }
 
 .topbar-actions {
@@ -96,7 +96,7 @@ main {
   text-transform: uppercase;
   color: var(--muted);
   letter-spacing: 2px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
 }
 
 h1 {
@@ -104,9 +104,13 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 1.6rem;
+}
+
 .subhead {
   color: var(--muted);
-  max-width: 560px;
+  max-width: 600px;
 }
 
 .stats-grid {
@@ -133,6 +137,42 @@ h1 {
   margin-top: 8px;
 }
 
+.stage-list {
+  display: grid;
+  width: 100%;
+  gap: 12px;
+}
+
+.stage-card {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--panel-soft);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.stage-card.locked {
+  opacity: 0.5;
+}
+
+.stage-card h3 {
+  font-size: 1.05rem;
+}
+
+.stage-card p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 6px;
+}
+
+.stage-status {
+  font-weight: 600;
+  color: var(--accent);
+}
+
 .primary-button,
 .ghost-button {
   border: none;
@@ -146,7 +186,7 @@ h1 {
 .primary-button {
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   color: #05070c;
-  box-shadow: 0 10px 24px rgba(110, 244, 255, 0.35);
+  box-shadow: 0 10px 24px rgba(113, 247, 255, 0.35);
 }
 
 .primary-button:hover,
@@ -160,6 +200,10 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+.hidden {
+  display: none;
+}
+
 .last-session {
   color: var(--muted);
   font-size: 0.85rem;
@@ -167,32 +211,21 @@ h1 {
 
 .training-header {
   display: flex;
+  gap: 24px;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 24px;
 }
 
-.toggles {
+.stage-header {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.toggle {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.toggle input {
-  accent-color: var(--accent);
+  flex-direction: column;
+  gap: 8px;
 }
 
 .trainer {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr);
+  grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
   gap: 24px;
 }
 
@@ -202,6 +235,9 @@ h1 {
   padding: 24px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .memory-indicator {
@@ -223,7 +259,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 280px;
+  height: 260px;
 }
 
 .staff {
@@ -232,19 +268,37 @@ h1 {
 }
 
 .staff line {
-  stroke: rgba(255, 255, 255, 0.4);
+  stroke: rgba(255, 255, 255, 0.35);
   stroke-width: 2;
 }
 
 .note ellipse {
   fill: var(--accent);
-  filter: drop-shadow(0 0 8px rgba(110, 244, 255, 0.8));
+  filter: drop-shadow(0 0 8px rgba(113, 247, 255, 0.8));
 }
 
 .note line {
   stroke: var(--accent);
   stroke-width: 3;
   stroke-linecap: round;
+}
+
+.note-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--muted);
+  background: rgba(10, 13, 19, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.note-overlay.visible {
+  opacity: 1;
 }
 
 .timer-bar {
@@ -257,6 +311,21 @@ h1 {
   transform-origin: left;
   transform: scaleX(0);
   transition: transform linear;
+}
+
+.stage-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.stage-meta p {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.stage-meta h3 {
+  font-size: 1.1rem;
 }
 
 .answer-grid {
@@ -278,7 +347,7 @@ h1 {
 
 .answer-grid button:hover {
   transform: translateY(-2px);
-  border-color: rgba(110, 244, 255, 0.6);
+  border-color: rgba(113, 247, 255, 0.6);
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
 }
 
@@ -347,7 +416,7 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .trainer {
     grid-template-columns: 1fr;
   }
@@ -355,6 +424,5 @@ h1 {
   .training-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
   }
 }

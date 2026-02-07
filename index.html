@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Note Instinct Trainer</title>
+  <title>Note Instinct System</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,7 +11,7 @@
     <header class="topbar">
       <div class="brand">
         <span class="logo-dot"></span>
-        <span>Note Instinct</span>
+        <span>Note Instinct System</span>
       </div>
       <div class="topbar-actions">
         <button id="statsButton" class="ghost-button">Stats</button>
@@ -22,13 +22,16 @@
     <main>
       <section id="home" class="panel panel-active">
         <div class="hero">
-          <p class="eyebrow">Reflex-based training</p>
-          <h1>Learn to Read Music by Instinct</h1>
-          <p class="subhead">Train your brain to recognize notes instantly with rapid, playful feedback.</p>
+          <p class="eyebrow">Cognitive training protocol</p>
+          <h1>Master Notes at the Speed of Instinct</h1>
+          <p class="subhead">
+            This system rewires recognition until notes trigger reflex, not thought. Mastery is earned through
+            precision, speed, and long-term retention.
+          </p>
 
           <div class="stats-grid">
             <div class="stat-card">
-              <p>Total Notes Mastered</p>
+              <p>Notes Mastered</p>
               <h2 id="statMastered">0</h2>
             </div>
             <div class="stat-card">
@@ -39,9 +42,14 @@
               <p>Current Streak</p>
               <h2 id="statStreak">0</h2>
             </div>
+            <div class="stat-card">
+              <p>Avg Reaction</p>
+              <h2 id="statReaction">0.0s</h2>
+            </div>
           </div>
 
-          <button id="startButton" class="primary-button">Start Training</button>
+          <div class="stage-list" id="stageList"></div>
+          <button id="startButton" class="primary-button">Begin Current Stage</button>
           <p id="lastSession" class="last-session"></p>
         </div>
       </section>
@@ -49,22 +57,17 @@
       <section id="training" class="panel">
         <div class="training-header">
           <button id="backButton" class="ghost-button">Back</button>
-          <div class="toggles">
-            <label class="toggle">
-              <input type="checkbox" id="reactionToggle" />
-              <span>Reaction Mode</span>
-            </label>
-            <label class="toggle">
-              <input type="checkbox" id="audioToggle" />
-              <span>Audio Mode</span>
-            </label>
+          <div class="stage-header">
+            <p class="eyebrow" id="stageLabel">Stage</p>
+            <h2 id="stageTitle">Stage Title</h2>
+            <p id="stageGoal" class="subhead"></p>
           </div>
         </div>
 
         <div class="trainer">
           <div class="staff-card">
             <div class="memory-indicator" id="memoryIndicator">
-              <span id="memoryLabel">Memory</span>
+              <span id="memoryLabel">Mastery</span>
               <span id="memoryValue">0</span>
             </div>
             <div class="staff-wrapper" id="staffWrapper">
@@ -81,12 +84,30 @@
                   <line id="noteStem" x1="130" y1="70" x2="130" y2="35"></line>
                 </g>
               </svg>
+              <div id="noteOverlay" class="note-overlay"></div>
               <div id="timerBar" class="timer-bar"></div>
+            </div>
+            <div class="stage-meta">
+              <div>
+                <p>Phase</p>
+                <h3 id="phaseStatus">--</h3>
+              </div>
+              <div>
+                <p>Session Accuracy</p>
+                <h3 id="sessionAccuracy">0%</h3>
+              </div>
+              <div>
+                <p>Avg Reaction</p>
+                <h3 id="sessionReaction">0.0s</h3>
+              </div>
             </div>
           </div>
 
-          <div class="answer-grid" id="answerGrid"></div>
-          <p id="feedback" class="feedback"></p>
+          <div>
+            <div class="answer-grid" id="answerGrid"></div>
+            <button id="continueButton" class="primary-button hidden">Continue</button>
+            <p id="feedback" class="feedback"></p>
+          </div>
         </div>
       </section>
     </main>
@@ -94,7 +115,7 @@
 
   <div id="statsModal" class="modal">
     <div class="modal-content">
-      <h3>Session Stats</h3>
+      <h3>Performance Detail</h3>
       <div class="modal-grid" id="statsList"></div>
       <button id="closeStats" class="primary-button">Close</button>
     </div>
