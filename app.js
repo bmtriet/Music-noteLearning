@@ -146,11 +146,16 @@ const loadState = () => {
   if (!saved) return getDefaultState();
   try {
     const parsed = JSON.parse(saved);
+    const base = getDefaultState();
     return {
-      ...getDefaultState(),
+      ...base,
       ...parsed,
-      notes: parsed.notes.map((note, index) => ({
-        ...getDefaultState().notes[index],
+      stageProgress: {
+        ...base.stageProgress,
+        ...(parsed.stageProgress || {})
+      },
+      notes: (parsed.notes || base.notes).map((note, index) => ({
+        ...base.notes[index],
         ...note
       }))
     };
